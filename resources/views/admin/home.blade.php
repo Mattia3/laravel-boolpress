@@ -1,4 +1,8 @@
-<div class="container">
+@extends('layouts.app')
+<div class="container pt-5">
+  <div class="mb-5">
+    <a href="{{route('admin.posts.create')}}" class="btn btn-success">Crea nuovo Post</a>
+  </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

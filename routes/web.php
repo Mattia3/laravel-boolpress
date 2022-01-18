@@ -19,16 +19,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::namespace("Admin")
+Route::namespace("admin")
   ->prefix("admin")
   ->name("admin.")
   ->middleware("auth")
   ->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('posts', 'PostController');
   });
+  
 
 
 Route::get("{any?}", function() {
   return view("guest.home");
 })->where("any", ".*");
+
+
 
