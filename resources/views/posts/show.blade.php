@@ -3,6 +3,13 @@
     <h5 class="card-title">Titolo: {{ $post->title }}</h5>
     <p class="card-text">Descrizione: {{ $post->description }}</p>
   </div>
+
+  <div class="form-group">
+    <label class="for-label">Categoria</label>
+    {{ $post->category->name }}
+  </div>
+
+
   <div>
     <a class="btn btn-success mx-4" href="{{ route('admin.posts.edit', $post->id) }}">Modifica</a>
   </div>

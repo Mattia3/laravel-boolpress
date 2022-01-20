@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\admin;
 use App\Post;
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -15,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
+      // $posts = Post::where('user_id', Auth::user()->id)->get(); 
       $posts = Post::all();
+
       return view('admin.home', compact('posts'));
     }
 
@@ -26,7 +29,10 @@ class PostController extends Controller
      */
     public function create()
     {
-      return view('posts.create');
+      $categories = Category::all();
+
+      return view('posts.create',compact('categories'));
+
     }
 
     /**
@@ -39,6 +45,7 @@ class PostController extends Controller
     {
       $post = new Post();
       $post->fill($request->all());
+      $post->user_id = Auth::user()->id;
       $post->save();
 
       return redirect()->route('admin.posts.show', $post->id);
@@ -52,6 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+      // $categories = Category::all();
       return view('posts.show', compact('post'));
     }
 
@@ -63,7 +71,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-      return view('posts.edit', compact('post'));
+      $categories = Category::all();
+
+      return view('posts.edit', [
+        'post' => $post,
+        'categories' => $categories,
+      ]);
     }
 
     /**
@@ -76,9 +89,7 @@ class PostController extends Controller
     public function update(Request $request,  Post $post)
     {
       $data = $request->all();
-
       $post->update($data);
-    
       return redirect()->route('admin.posts.show', $post->id);
     }
 
