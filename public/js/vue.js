@@ -99,12 +99,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
-      helloMsg: "Benvenuto in Vue "
+      arrayPost: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    window.axios.get("/api/post").then(function (resp) {
+      _this.arrayPost = resp.data;
+    });
   }
 });
 
@@ -593,7 +608,25 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v(_vm._s(_vm.helloMsg))])
+  return _c("div", { staticClass: "container p-0" }, [
+    _c("h1", { staticClass: "text-center my-4" }, [_vm._v("Tutti i post")]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row row-cols-3 text-center" },
+      _vm._l(_vm.arrayPost, function (post, i) {
+        return _c("div", { key: i, staticClass: "col my-4 p-0" }, [
+          _c("h3", [_vm._v("Titolo: " + _vm._s(post.title) + " "), _c("br")]),
+          _vm._v(" "),
+          _c("h3", [
+            _vm._v("Descrizione: " + _vm._s(post.description)),
+            _c("br"),
+          ]),
+        ])
+      }),
+      0
+    ),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

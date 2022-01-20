@@ -18,7 +18,9 @@ class AddCategoryIdColumnToPostsTable extends Migration
           $table->unsignedBigInteger('category_id')->nullable(true)->after('user_id');
           $table->foreign('category_id')
                 ->references('id')
-                ->on('posts');
+                ->on('categories');
+
+                
         });
     }
 

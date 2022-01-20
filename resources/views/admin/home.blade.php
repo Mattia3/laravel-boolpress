@@ -1,8 +1,13 @@
 @extends('layouts.app')
+
+@section('content')
 <div class="container pt-5">
   <div class="mb-5">
     <a href="{{route('admin.posts.create')}}" class="btn btn-success">Crea nuovo Post</a>
   </div>
+    {{-- @foreach ($posts as $post)
+        {{ $post['title'] }}
+    @endforeach --}}
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -21,5 +26,7 @@
         </div>
     </div>
 </div>
+
+@endsection
 
 

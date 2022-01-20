@@ -17,7 +17,7 @@ class AddUserIdColumnToPostsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable(true)->after('description');
             $table->foreign('user_id')
                   ->references('id')
-                  ->on('posts');
+                  ->on('users');
         });
     }
 
