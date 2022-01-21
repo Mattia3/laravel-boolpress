@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function api(){
-      $posts = Post::all();
+      $posts = Post::with('category')->get();
       return $posts;
     }
 }

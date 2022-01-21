@@ -17,7 +17,19 @@
         <label class="form-label">Categoria</label>
         <select name="category_id" class="form-control">
           @foreach($categories as $category)
-          <option value="{{$category->id}}">{{$category->name}}</option>
+          <option value="{{ $category->id }}">{{ $category->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Tag</label>
+        <select name="tags[]" class="form-control"  multiple>
+          @foreach($tags as $tag)
+          @php
+           $exists = $post->tags->where("id", $tag->id)->count();
+          @endphp
+          <option value="{{ $tag->id }}" @if ($exists) selected @endif>{{ $tag->name }}</option>
           @endforeach
         </select>
       </div>

@@ -6,12 +6,19 @@
 <div class="container">
   <div>
     <h5 class="card-title">Titolo: {{ $post->title }}</h5>
-    <p class="card-text">Descrizione: {{ $post->description }}</p>
+    <h5 class="card-text">Descrizione: {{ $post->description }}</h5>
   </div>
 
   <div class="form-group">
     <label class="for-label">Categoria</label>
     {{ $post->category->name }}
+  </div>
+
+  <div class="form-group">
+    <label class="for-label">Tag</label>
+    @foreach ($post->tags as $tag)
+        <span class="badge bg-success">{{ $tag->name }}</span>
+    @endforeach
   </div>
 
   <div class="d-flex ">

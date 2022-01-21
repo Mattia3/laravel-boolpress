@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 use App\Post;
 use App\Category;
+use App\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,13 @@ class PostController extends Controller
     public function create()
     {
       $categories = Category::all();
+      $tags = Tag::all();
 
-      return view('posts.create',compact('categories'));
+      return view('posts.create', [
+        'categories' => $categories,
+        'tags' => $tags
+      
+      ]);
 
     }
 
@@ -43,10 +49,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+      $data = $request->all();
       $post = new Post();
+
       $post->fill($request->all());
       $post->user_id = Auth::user()->id;
+     
       $post->save();
+
+      $post->tags()->sync( $data["tags"] );
 
       return redirect()->route('admin.posts.show', $post->id);
     }
@@ -72,10 +83,12 @@ class PostController extends Controller
     public function edit(Post $post)
     {
       $categories = Category::all();
+      $tags = Tag::all();
 
       return view('posts.edit', [
         'post' => $post,
         'categories' => $categories,
+        'tags' => $tags,
       ]);
     }
 
@@ -90,6 +103,9 @@ class PostController extends Controller
     {
       $data = $request->all();
       $post->update($data);
+    
+      $post->tags()->sync( $data["tags"] );
+
       return redirect()->route('admin.posts.show', $post->id);
     }
 

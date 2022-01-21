@@ -31,6 +31,15 @@
       </select>
     </div>
 
+    <div class="form-group">
+      <label class="form-label">Categoria</label>
+      <select name="tags[]" class="form-control" multiple>
+        @foreach($tags as $tag)
+        <option value="{{$tag->id}}">{{$tag->name}}</option>
+        @endforeach
+      </select>
+    </div>
+
 
     <div class="text-center mb-3">
       <button type="submit" class="btn btn-success btn-submit">Submit</button>
