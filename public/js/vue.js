@@ -107,19 +107,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
     return {
-      arrayPost: []
+      arrayPost: [],
+      currentPage: 1
     };
   },
-  mounted: function mounted() {
-    var _this = this;
+  methods: {
+    pagination: function pagination() {
+      var _this = this;
 
-    window.axios.get("/api/post").then(function (resp) {
-      _this.arrayPost = resp.data;
-    });
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      window.axios.get("/api/post?page=" + page).then(function (resp) {
+        _this.arrayPost = resp.data.data;
+        _this.currentPage = resp.data.current_page;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.pagination();
   }
 });
 
@@ -626,6 +649,34 @@ var render = function () {
       }),
       0
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "d-flex justify-content-end mt-5" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success mr-3 page-link",
+          on: {
+            click: function ($event) {
+              return _vm.pagination(_vm.currentPage + 1)
+            },
+          },
+        },
+        [_vm._v("\n            avanti\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          on: {
+            click: function ($event) {
+              return _vm.pagination(_vm.currentPage - 1)
+            },
+          },
+        },
+        [_vm._v("\n            indietro\n        ")]
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []

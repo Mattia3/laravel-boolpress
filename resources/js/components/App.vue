@@ -7,6 +7,21 @@
                 <h3>Descrizione: {{ post.description }}<br /></h3>
             </div>
         </div>
+
+        <div class="d-flex justify-content-end mt-5">
+            <button
+                class="btn btn-success mr-3 page-link"
+                @click="pagination(currentPage + 1)"
+            >
+                avanti
+            </button>
+            <button
+                class="btn btn-primary"
+                @click="pagination(currentPage - 1)"
+            >
+                indietro
+            </button>
+        </div>
     </div>
 </template>
 
@@ -16,13 +31,21 @@ export default {
     data() {
         return {
             arrayPost: [],
+            currentPage: 1,
         };
     },
 
+    methods: {
+        pagination(page = 1) {
+            window.axios.get("/api/post?page=" + page).then((resp) => {
+                this.arrayPost = resp.data.data;
+                this.currentPage = resp.data.current_page;
+            });
+        },
+    },
+
     mounted() {
-        window.axios.get("/api/post").then((resp) => {
-            this.arrayPost = resp.data;
-        });
+        this.pagination();
     },
 };
 </script>
