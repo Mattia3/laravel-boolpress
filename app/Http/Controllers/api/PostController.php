@@ -12,4 +12,10 @@ class PostController extends Controller
       
       return $posts;
     }
+
+    public function index($id){
+      $singolPost = Post::where('id', $id)->first() ;
+      
+      return $singolPost;
+    }
 }

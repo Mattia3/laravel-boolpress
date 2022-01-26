@@ -69,6 +69,8 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('admin.home') }}">Home</a>
+                        <a href="{{ url('about') }}">About</a>
+                        <a href="{{ url('contact') }}">Contact</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -78,6 +80,7 @@
                     @endauth
                 </div>
             @endif
+           
 
             <div class="content">
                 <div class="title m-b-md">
