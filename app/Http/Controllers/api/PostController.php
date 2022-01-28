@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
-use App\Post;
+
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostController extends Controller
 {
-    public function api(){
-      $posts = Post::with('category')->paginate(3);
-      
-      return $posts;
+    public function api(Request $request){
+      $category = $request ->query('category');
+
+      $posts = Post::with('category')
+      ->paginate(3);
+     
+      if($category){
+        $posts = $posts->where("category_id", $category);
+        return response()->json($posts);
+      }
+
+      return response()->json($posts);
     }
 
     public function index($id){
@@ -18,4 +27,6 @@ class PostController extends Controller
       
       return $singolPost;
     }
+
+    
 }

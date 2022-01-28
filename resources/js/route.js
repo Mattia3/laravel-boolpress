@@ -5,6 +5,7 @@ import Home from "./pages/Home.vue";
 import About from "./pages/About.vue";
 import Contact from "./pages/Contact.vue";
 import Show from "./pages/posts/Show.vue";
+import Index from "./pages/posts/Index.vue";
 
 Vue.use(VueRouter);
 
@@ -12,7 +13,7 @@ const router = new VueRouter({
     mode: "history",
     routes: [
         {
-            path: "/admin.home",
+            path: "/home",
             name: "home",
             component: Home,
         },
@@ -30,6 +31,11 @@ const router = new VueRouter({
             path: "/posts/:id",
             name: "show",
             component: Show,
+        },
+        {
+            path: "/posts",
+            name: "index",
+            component: Index,
         },
     ],
 });
