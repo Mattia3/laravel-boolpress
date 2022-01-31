@@ -12,12 +12,12 @@ class PostController extends Controller
       $category = $request ->query('category');
 
       $posts = Post::with('category')
-      ->paginate(3);
+      ->paginate(5);
      
-      if($category){
-        $posts = $posts->where("category_id", $category);
-        return response()->json($posts);
-      }
+      // if($category){
+      //   $posts = $posts->where("category_id", $category);
+      //   return response()->json($posts);
+      // }
 
       return response()->json($posts);
     }
